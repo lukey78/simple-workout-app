@@ -1,0 +1,45 @@
+.headerline {
+    background-color: #732e7f;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+h2 {
+    color: white;
+    font-size: 25px;
+}
+
+
+.main {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.timer {
+    display: none;
+}
+
+.progress {
+    display: none;
+    height: 50px;
+    margin-top: 50px;
+}
+
+.progress-bar {
+    font-size: 30px;
+    padding-top: 15px;
+}
+
+.exercise {
+    font-weight: bold;
+}
+
+.current-exercise {
+    font-size: 60px;
+}
