@@ -46,15 +46,16 @@ function nextExercise(workout) {
     currentExerciseNr++;
     if (currentExerciseNr == workout.exercises.length) {
         finishWorkout();
+    } else {
+        currentExercise = workout.exercises[currentExerciseNr];
+        currentTimer = currentExercise.duration;
+
+        $('.exercise').removeClass('current-exercise');
+        $('[data-nr=' + currentExerciseNr + ']').addClass('current-exercise');
+
+        console.log("starting next exercise");
+        console.log(currentExercise);
     }
-    currentExercise = workout.exercises[currentExerciseNr];
-    currentTimer = currentExercise.duration;
-
-    $('.exercise').removeClass('current-exercise');
-    $('[data-nr=' + currentExerciseNr + ']').addClass('current-exercise');
-
-    console.log("starting next exercise");
-    console.log(currentExercise);
 }
 
 function workoutIteration(exercise) {
@@ -86,6 +87,7 @@ function finishWorkout() {
     $('.startbutton').show();
     $('.progress').hide();
     $('.exercise').removeClass('current-exercise');
+    currentExerciseNr=-1;
 
     console.log("workout finished");
 }
