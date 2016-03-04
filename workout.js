@@ -60,10 +60,11 @@ function nextExercise(workout) {
 function workoutIteration(exercise) {
     var remainingTime = secondsAsTime(currentTimer);
     $('.timer').html(remainingTime);
-    $('.progress-bar').attr('aria-valuenow', currentTimer);
-    $('.progress-bar').attr('aria-valuemax', exercise.duration);
-    $('.progress-bar').css('width', currentTimer*100/exercise.duration + '%');
-    $('.progress-bar').html(remainingTime);
+    var progressbar = $('.progress-bar');
+    progressbar.attr('aria-valuenow', currentTimer);
+    progressbar.attr('aria-valuemax', exercise.duration);
+    progressbar.css('width', currentTimer*100/exercise.duration + '%');
+    progressbar.html(remainingTime);
 }
 
 
@@ -73,7 +74,7 @@ function str_pad_left(string,pad,length) {
 
 // convert seconds to minute:seconds format
 function secondsAsTime(givenSeconds) {
-    var minutes = Math.floor(givenSeconds / 60);;
+    var minutes = Math.floor(givenSeconds / 60);
     var seconds = givenSeconds - (minutes * 60);
     var finalTime = minutes.toString() + ':' + str_pad_left(seconds,'0',2);
     return finalTime;
@@ -92,9 +93,19 @@ function finishWorkout() {
 
 function createDomElementsForWorkout(workout) {
     var n = 0;
+    var t=0;
     $('.current_workout').empty();
     workout.exercises.forEach(function(exercise) {
         $('.current_workout').append('<div class="exercise" data-nr="' + n + '" data-duration="' + exercise.duration + '">' + exercise.exercise + ' (' + secondsAsTime(exercise.duration) + ')' + '</div>' );
+        var times = 1;
+        if (exercise.restartEvery){
+            times = Math.round(exercise.duration/exercise.restartEvery);
+        }
+        for (var j=0;j<times;j++){
+            var x = exercise.restartEvery || 0;
+            setTimeout(function(){new Audio('sound/'+exercise.sound).play();},(t+1+j*x)*1000);
+        }
+        t+=exercise.duration;
         n++;
     });
 }
