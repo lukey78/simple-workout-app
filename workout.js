@@ -108,7 +108,7 @@ function createDomElementsForWorkout(workout) {
             setTimeout(function(){
                 if (x){
                     //using an ugly workaround to assert that the audio can be restarted again, even if it is slightly longer, by adapting the playback rate
-                    exercise.audio.playbackRate = (exercise.audio.duration+0.1)/x;
+                    exercise.audio.playbackRate = (exercise.audio.duration)/x+0.02;
                 }
                 exercise.audio.play();
             },(t+1+j*x)*1000);
