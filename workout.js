@@ -103,7 +103,13 @@ function createDomElementsForWorkout(workout) {
         }
         for (var j=0;j<times;j++){
             var x = exercise.restartEvery || 0;
-            setTimeout(function(){new Audio('sound/'+exercise.sound).play();},(t+1+j*x)*1000);
+            setTimeout(function(){
+                if (x){
+                    //using an ugly workaround to assert that the audio can be restarted again, even if it is slightly longer, by adapting the playback rate
+                    exercise.audio.playbackRate = (exercise.audio.duration+0.1)/x;
+                }
+                exercise.audio.play();
+            },(t+1+j*x)*1000);
         }
         t+=exercise.duration;
         n++;
